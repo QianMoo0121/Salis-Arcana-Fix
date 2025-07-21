@@ -8,8 +8,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.github.bsideup.jabel.Desugar;
-
 import dev.rndmorris.salisarcana.api.IMultipleResearchArcaneRecipe;
 import dev.rndmorris.salisarcana.common.CustomResearch;
 import dev.rndmorris.salisarcana.config.SalisConfig;
@@ -153,8 +151,29 @@ public class ReplaceWandCapsRecipe implements IArcaneRecipe, IMultipleResearchAr
         return new String[] { getResearch(), scanResult.newCaps.getResearch() };
     }
 
-    @Desugar
-    private record InvScanResult(ItemStack wandItem, WandCap newCaps, int newCapsFound) {
+    private static class InvScanResult {
+
+        private final ItemStack wandItem;
+        private final WandCap newCaps;
+        private final int newCapsFound;
+
+        public InvScanResult(ItemStack wandItem, WandCap newCaps, int newCapsFound) {
+            this.wandItem = wandItem;
+            this.newCaps = newCaps;
+            this.newCapsFound = newCapsFound;
+        }
+
+        public ItemStack wandItem() {
+            return wandItem;
+        }
+
+        public WandCap newCaps() {
+            return newCaps;
+        }
+
+        public int newCapsFound() {
+            return newCapsFound;
+        }
 
         public boolean invalidInputs() {
             if (wandItem == null) {
@@ -185,6 +204,5 @@ public class ReplaceWandCapsRecipe implements IArcaneRecipe, IMultipleResearchAr
         public @Nonnull WandType wandType() {
             return WandType.getWandType(wandItem);
         }
-
     }
 }

@@ -8,8 +8,6 @@ import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.github.bsideup.jabel.Desugar;
-
 public class ArrayHelper {
 
     public static String[] appendToArray(String[] array, String newValue) {
@@ -60,8 +58,23 @@ public class ArrayHelper {
         return result;
     }
 
-    @Desugar
-    public record TryGetResult<E> (boolean success, E data) {
+    public static class TryGetResult<E> {
+
+        private final boolean success;
+        private final E data;
+
+        public TryGetResult(boolean success, E data) {
+            this.success = success;
+            this.data = data;
+        }
+
+        public boolean success() {
+            return success;
+        }
+
+        public E data() {
+            return data;
+        }
 
         public static <E> TryGetResult<E> failure() {
             return new TryGetResult<>(false, null);

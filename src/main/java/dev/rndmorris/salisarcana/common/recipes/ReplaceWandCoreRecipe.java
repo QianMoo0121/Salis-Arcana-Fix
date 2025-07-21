@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
-import com.github.bsideup.jabel.Desugar;
 import com.gtnewhorizons.tcwands.api.wandinfo.WandDetails;
 import com.gtnewhorizons.tcwands.api.wrappers.AbstractWandWrapper;
 
@@ -198,8 +197,35 @@ public class ReplaceWandCoreRecipe implements IArcaneRecipe, IMultipleResearchAr
             .getResearch() };
     }
 
-    @Desugar
-    private record InvScanResult(ItemStack wandItem, WandRod newRod, int screws, int conductors) {
+    private static class InvScanResult {
+
+        private final ItemStack wandItem;
+        private final WandRod newRod;
+        private final int screws;
+        private final int conductors;
+
+        public InvScanResult(ItemStack wandItem, WandRod newRod, int screws, int conductors) {
+            this.wandItem = wandItem;
+            this.newRod = newRod;
+            this.screws = screws;
+            this.conductors = conductors;
+        }
+
+        public ItemStack wandItem() {
+            return wandItem;
+        }
+
+        public WandRod newRod() {
+            return newRod;
+        }
+
+        public int screws() {
+            return screws;
+        }
+
+        public int conductors() {
+            return conductors;
+        }
 
         public boolean invalidInputs() {
             if (wandItem == null || newRod == null) {

@@ -6,8 +6,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 
-import com.github.bsideup.jabel.Desugar;
-
 import dev.rndmorris.salisarcana.api.IVariableInfusionStabilizer;
 import dev.rndmorris.salisarcana.config.SalisConfig;
 import thaumcraft.api.crafting.IInfusionStabiliser;
@@ -180,6 +178,18 @@ public class InfusionMatrixLogic {
         public int symmetry = 0;
     }
 
-    @Desugar
-    private record MatrixOrigin(World world, int xCoord, int yCoord, int zCoord) {}
+    private static class MatrixOrigin {
+
+        public final World world;
+        public final int xCoord;
+        public final int yCoord;
+        public final int zCoord;
+
+        public MatrixOrigin(World world, int xCoord, int yCoord, int zCoord) {
+            this.world = world;
+            this.xCoord = xCoord;
+            this.yCoord = yCoord;
+            this.zCoord = zCoord;
+        }
+    }
 }
